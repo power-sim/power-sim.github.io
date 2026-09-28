@@ -13,28 +13,75 @@
 
   <style>
     body, html, .title, .subtitle, .content, .button, p, h1, h2, h3, h4, h5, h6, span, a, li {
-      font-family: 'Source Sans 3', sans-serif !important;
+      font-family: 'Times New Roman', Times, 'Liberation Serif', 'Nimbus Roman', serif !important;
     }
 
     html { scroll-behavior: smooth; }
 
-    section.hero {
-      background: linear-gradient(150deg, #ffffff 0%, #edf1f8 55%, #e4ecf7 100%);
-      border-bottom: 1px solid #c8d5e8;
+    body {
+      background: #ececec;
     }
 
-    section.section:nth-of-type(2n) {
-      background-color: #f5f7fb;
+    /* The whole page sits on one white card, as on a classic project page. */
+    .page-card {
+      max-width: 1280px;
+      margin: 2.5rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.13);
+      overflow: hidden;
+    }
+
+    section.hero {
+      background: transparent;
+    }
+
+    section.hero .hero-body {
+      padding-top: 3.5rem;
+      padding-bottom: 1rem;
+    }
+
+    section.section {
+      background: transparent;
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
     }
 
     .title.is-3 {
       margin-bottom: 1.8rem !important;
-      color: #13294B !important;
+      color: #111 !important;
+      font-weight: 400 !important;
     }
 
     .title.is-4 {
       margin: 2.5rem 0 1.2rem !important;
-      color: #13294B !important;
+      color: #111 !important;
+      font-weight: 400 !important;
+    }
+
+    /* Hero: title, author row, affiliation. */
+    .paper-title {
+      color: #111 !important;
+      font-weight: 400 !important;
+      font-size: 2.6rem !important;
+      line-height: 1.2 !important;
+      margin-bottom: 1.1rem !important;
+      letter-spacing: 0.005em;
+    }
+
+    .publication-authors .author-block {
+      margin: 0 1.25em;
+    }
+
+    .publication-authors a {
+      color: #1a3f7a !important;
+      text-decoration: underline;
+    }
+
+    .publication-affiliation {
+      margin-top: 0.9em;
+      font-size: 1.25rem;
+      color: #111;
     }
 
     .section-note {
@@ -47,11 +94,11 @@
 
     /* Wider than Bulma's is-max-desktop, used for sections whose media should read large. */
     .container.is-wide {
-      max-width: 1600px;
+      max-width: 100%;
     }
 
     .figure-wrap {
-      max-width: 1800px;
+      max-width: 100%;
       margin: 0 auto 1.5rem;
     }
 
@@ -267,12 +314,12 @@
     }
 
     footer.footer {
-      background: #ffffff;
+      background: transparent;
       border-top: none;
     }
 
     footer.footer p {
-      color: #13294B !important;
+      color: #555 !important;
     }
 
     #back-to-top {
@@ -281,7 +328,7 @@
       right: 2rem;
       width: 44px;
       height: 44px;
-      background: #13294B;
+      background: #222;
       color: white;
       border: none;
       border-radius: 50%;
@@ -289,7 +336,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 16px rgba(19, 41, 75, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
       opacity: 0;
       transform: translateY(12px);
       transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease;
@@ -318,20 +365,21 @@
   </style>
 </head>
 <body>
+<div class="page-card">
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container is-wide">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <div class="publication-title">
-            <h2 class="title is-3" style="font-weight: 500; margin-bottom: 0.6em; font-size: 2.2rem; line-height: 1.25;">PowerSim: Differentiable Physics Simulation and Rendering with Power Diagrams</h2>
+            <h2 class="title is-3 paper-title">PowerSim: Differentiable Physics Simulation and Rendering with Power Diagrams</h2>
           </div>
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="https://nttung1110.github.io/" target="_blank" rel="noopener">Trong-Tung Nguyen</a></span>,
+            <span class="author-block"><a href="https://nttung1110.github.io/" target="_blank" rel="noopener">Trong-Tung Nguyen</a></span>
             <span class="author-block"><a href="https://anandbhattad.github.io/" target="_blank" rel="noopener">Anand Bhattad</a></span>
           </div>
-          <div class="is-size-5 publication-authors" style="margin-top: 0.4em; color: #555;">
-            <span class="author-block">Johns Hopkins University</span>
+          <div class="publication-affiliation">
+            Johns Hopkins University
           </div>
           <div style="margin-top: 2rem;">
             <div class="figure-wrap">
@@ -580,12 +628,13 @@
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content has-text-centered">
-          <p>Anonymous project page.</p>
+          <p>PowerSim project page.</p>
         </div>
       </div>
     </div>
   </div>
 </footer>
+</div>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
