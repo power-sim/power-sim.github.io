@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="ICLR Submission 14573">
+  <meta name="keywords" content="Differentiable Physics, Structural Foam, Dynamic Scene Editing, Material Estimation, Ray Tracing, Gaussian Splatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ICLR Submission 14573</title>
+
+  <link rel="stylesheet" href="./static/css/fonts.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <style>
+    body, html, .title, .subtitle, .content, .button, p, h1, h2, h3, h4, h5, h6, span, a, li {
+      font-family: 'Source Sans 3', sans-serif !important;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    section.hero {
+      background: linear-gradient(150deg, #ffffff 0%, #edf1f8 55%, #e4ecf7 100%);
+      border-bottom: 1px solid #c8d5e8;
+    }
+
+    section.section:nth-of-type(2n) {
+      background-color: #f5f7fb;
+    }
+
+    .title.is-3 {
+      margin-bottom: 1.8rem !important;
+      color: #13294B !important;
+    }
+
+    .title.is-4 {
+      margin: 2.5rem 0 1.2rem !important;
+      color: #13294B !important;
+    }
+
+    .section-note {
+      max-width: 820px;
+      margin: -1rem auto 1.5rem;
+      color: #555;
+      font-size: 1.05em;
+      line-height: 1.45;
+    }
+
+    /* Wider than Bulma's is-max-desktop, used for sections whose media should read large. */
+    .container.is-wide {
+      max-width: 1600px;
+    }
+
+    .figure-wrap {
+      max-width: 1800px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .figure-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #fff;
+    }
+
+    .media-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1em;
+      margin: 1.25em 0;
+    }
+
+    .media-item {
+      flex: 1 1 300px;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    .media-grid.is-3up {
+      max-width: 1130px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .media-item.is-wide {
+      flex-basis: 420px;
+      max-width: 560px;
+    }
+
+    .media-item.is-full {
+      flex-basis: 100%;
+      max-width: 1100px;
+    }
+
+    .media-label.label-ours {
+      color: #1f77b4;
+    }
+
+    .media-label.label-fail {
+      color: #d62828;
+    }
+
+    .media-label {
+      display: block;
+      font-size: 1em;
+      font-weight: 700;
+      margin-bottom: 0.4em;
+      color: #363636;
+    }
+
+    .media-frame {
+      position: relative;
+    }
+
+    .media-item img,
+    .media-item video,
+    .mat-item img,
+    .mat-item video {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 0.5em;
+      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
+      display: block;
+    }
+
+    .media-item.is-wide video { aspect-ratio: 1298 / 840; }
+    .media-item.is-wide.is-16x9 video { aspect-ratio: 16 / 9; }
+    .media-item.is-full video { aspect-ratio: 1810 / 482; }
+
+    /* Three-up grid with an uppercase label bar, as in the hero of the sibling page. */
+    .teaser-motion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1em;
+      margin: 0 auto;
+    }
+
+    .teaser-motion-item {
+      text-align: center;
+    }
+
+    .teaser-motion-label {
+      padding: 0.5em 0.3em;
+      border-bottom: 2px solid #70b700;
+      background: #eef3fb;
+      color: #174a90;
+      font-size: 0.78em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .teaser-motion-item video {
+      width: 100%;
+      aspect-ratio: 1296 / 840;
+      object-fit: contain;
+      background: #fff;
+      box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+
+    /* Material estimation: two items side by side, each an image coupled with a video. */
+    .mat-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5em;
+      margin: 1.25em 0;
+    }
+
+    .mat-item {
+      flex: 1 1 380px;
+      max-width: 480px;
+      padding: 0.9em 0.9em 0.7em;
+      border: 1px solid #d7dde8;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .mat-item-title {
+      font-size: 1.1em;
+      font-weight: 800;
+      margin-bottom: 0.6em;
+    }
+
+    .mat-item-title.is-random { color: #d62828; }
+    .mat-item-title.is-optimized { color: #3a9d23; }
+    .mat-item-title.is-baseline { color: #13294B; }
+
+    .mat-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6em;
+      align-items: start;
+    }
+
+    .mat-pair img,
+    .mat-pair video {
+      aspect-ratio: 380 / 230;
+      object-fit: cover;
+      border-radius: 0.4em;
+    }
+
+    .mat-pair .media-label {
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #174a90;
+    }
+
+    /* Placeholder overlay: shown automatically when a <source> fails to load. */
+    .media-frame.is-missing video {
+      visibility: hidden;
+    }
+
+    .media-frame .missing-overlay {
+      display: none;
+    }
+
+    .media-frame.is-missing .missing-overlay {
+      display: flex;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.25em;
+      border: 2px dashed #b9c6da;
+      border-radius: 0.5em;
+      background: repeating-linear-gradient(135deg, #f7f9fc 0 12px, #eef2f8 12px 24px);
+      color: #6b7a90;
+      font-weight: 700;
+      font-size: 0.95em;
+      padding: 0.5em;
+      text-align: center;
+    }
+
+    .media-frame.is-missing .missing-overlay small {
+      font-weight: 400;
+      font-size: 0.8em;
+      word-break: break-all;
+    }
+
+    .placeholder-block {
+      max-width: 1080px;
+      min-height: 220px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4em;
+      border: 2px dashed #b9c6da;
+      border-radius: 10px;
+      background: repeating-linear-gradient(135deg, #f7f9fc 0 12px, #eef2f8 12px 24px);
+      color: #6b7a90;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+
+    .placeholder-block small {
+      font-weight: 400;
+      font-size: 0.8em;
+    }
+
+    footer.footer {
+      background: #ffffff;
+      border-top: none;
+    }
+
+    footer.footer p {
+      color: #13294B !important;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      background: #13294B;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(19, 41, 75, 0.35);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      .media-item,
+      .media-item.is-wide,
+      .mat-item {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+
+      .teaser-motion-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <div class="publication-title">
+            <h2 class="title is-3" style="font-weight: 500; margin-bottom: 0.3em; font-size: 2.2rem;">ICLR Submission 14573</h2>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Anonymous Authors</span>
+          </div>
+          <div style="margin-top: 2rem;">
+            <div class="figure-wrap">
+              <img src="./new_assets/pdf_renders/teaser.png" alt="Teaser: scene composition, simulation under applied force, estimated material fields, and dynamic mirror reflection over time">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-wide">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Dynamic Scene Editing with Poking</h2>
+        <div class="figure-wrap">
+          <img src="./new_assets/pdf_renders/foam_edit.png" alt="Scene editing pipeline: original scene, object removal, selected object, simulation-ready scene">
+        </div>
+        <div class="teaser-motion-grid">
+          <div class="teaser-motion-item">
+            <div class="teaser-motion-label">Force Setting 1</div>
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_1.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_1.mp4</small></div>
+            </div>
+          </div>
+          <div class="teaser-motion-item">
+            <div class="teaser-motion-label">Force Setting 2</div>
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_2.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_2.mp4</small></div>
+            </div>
+          </div>
+          <div class="teaser-motion-item">
+            <div class="teaser-motion-label">Force Setting 3</div>
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_3.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_3.mp4</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Why PowerSim?</h2>
+        <div class="media-grid">
+          <div class="media-item">
+            <p class="media-label">PAC-NeRF</p>
+            <video autoplay muted loop playsinline><source src="./results/why_powersim/pac_nerf.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">PhysGaussian</p>
+            <video autoplay muted loop playsinline><source src="./results/why_powersim/physgaussian.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label label-ours">PowerSim</p>
+            <video autoplay muted loop playsinline><source src="./results/why_powersim/powersim.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+
+        <h3 class="title is-4">How to Physically Update Foams?</h3>
+        <div class="figure-wrap">
+          <img src="./new_assets/pdf_renders/evolve_sites.png" alt="Differentiable PowerSim primitives update: primitives at rest are mapped world2sim, advanced by N differentiable MPM substeps, then mapped sim2world to the primitives at timestep t">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-wide">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Material Properties Estimation</h2>
+        <div class="mat-row">
+          <div class="mat-item">
+            <div class="mat-item-title is-random">&#10007; Random Material</div>
+            <div class="mat-pair">
+              <div>
+                <p class="media-label">Material Field</p>
+                <img src="./new_assets/material/random.png" alt="Randomly initialized material field">
+              </div>
+              <div>
+                <p class="media-label">Simulation</p>
+                <div class="media-frame">
+                  <video autoplay muted loop playsinline><source src="./results/material/random.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                  <div class="missing-overlay">Video placeholder<small>results/material/random.mp4</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mat-item">
+            <div class="mat-item-title is-baseline">PhysDreamer</div>
+            <div class="mat-pair">
+              <div>
+                <p class="media-label">Material Field</p>
+                <img src="./new_assets/material/physdreamer.png" alt="PhysDreamer material field">
+              </div>
+              <div>
+                <p class="media-label">Simulation</p>
+                <div class="media-frame">
+                  <video autoplay muted loop playsinline><source src="./results/material/physdreamer.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                  <div class="missing-overlay">Video placeholder<small>results/material/physdreamer.mp4</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mat-item">
+            <div class="mat-item-title is-optimized">&#10003; Optimized Material</div>
+            <div class="mat-pair">
+              <div>
+                <p class="media-label">Material Field</p>
+                <img src="./new_assets/material/optimized.png" alt="Optimized material field">
+              </div>
+              <div>
+                <p class="media-label">Simulation</p>
+                <div class="media-frame">
+                  <video autoplay muted loop playsinline><source src="./results/material/optimized.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                  <div class="missing-overlay">Video placeholder<small>results/material/optimized.mp4</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-wide">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">More Simulation Results</h2>
+        <div class="media-grid is-3up">
+          <div class="media-item">
+            <p class="media-label">Collision</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/pillow2sofa_drop.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Compression</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/coke_can_compress.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Elasticity</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/ficus_poke.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Granular</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/wolf_sand.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Mic Drop</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/mic_drop.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Telephone Swinging</p>
+            <video autoplay muted loop playsinline><source src="./results/single_object/telephone_swing.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Dynamic Secondary Ray Tracing with Reflection</h2>
+        <div class="media-grid">
+          <div class="media-item is-wide">
+            <p class="media-label">Bonsai Garden with Mirror Reflection</p>
+            <video autoplay muted loop playsinline><source src="./results/ray_tracing/bonsai_garden_dynamic_mirror.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item is-wide is-16x9">
+            <p class="media-label">Multi-Physics Cafeteria with Mirror Reflection</p>
+            <video autoplay muted loop playsinline><source src="./results/ray_tracing/cafeteria.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Comparison with Baselines</h2>
+        <p class="section-note">Dynamic reconstruction on the GSO drop benchmark. Panels left to right: PAC-NeRF, PhysDreamer, Ours, Reference.</p>
+        <div class="media-grid">
+          <div class="media-item is-full">
+            <p class="media-label">Mario</p>
+            <video autoplay muted loop playsinline><source src="./results/compare/mario.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item is-full">
+            <p class="media-label">Bus</p>
+            <video autoplay muted loop playsinline><source src="./results/compare/bus.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-wide">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Ablation Studies</h2>
+        <p class="section-note">Under large twisting deformations, updating both the dipole frames and appearance directions helps preserve the object's geometry and appearance. We compare the full update with variants that hold either component fixed, and with PhysGaussian.</p>
+        <div class="media-grid">
+          <div class="media-item">
+            <p class="media-label label-ours">PowerSim</p>
+            <video autoplay muted loop playsinline><source src="./results/ablation/powersim.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Fixed Dipole Plane</p>
+            <video autoplay muted loop playsinline><source src="./results/ablation/fixed_dipole_plane.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label">Fixed Detail Site Axis</p>
+            <video autoplay muted loop playsinline><source src="./results/ablation/fixed_texel_axis.mp4" type="video/mp4"></video>
+          </div>
+          <div class="media-item">
+            <p class="media-label label-fail">PhysGaussian</p>
+            <video autoplay muted loop playsinline><source src="./results/ablation/physgaussian.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>Anonymous project page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  // A <source> fires "error" when its file cannot be loaded; flip the frame into placeholder mode.
+  function markMissing(sourceEl) {
+    var frame = sourceEl.closest('.media-frame');
+    if (frame) frame.classList.add('is-missing');
+  }
+
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+</script>
+</body>
+</html>
