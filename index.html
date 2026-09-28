@@ -19,38 +19,31 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: #ececec;
+      background: #fff;
     }
 
-    /* The whole page sits on one white card, as on a classic project page. */
-    .page-card {
+    /* Each section is its own bounded card. */
+    section.hero,
+    section.section {
       width: 1100px;
-      padding: 25px 50px;
       margin: 25px auto;
+      padding: 25px 50px;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0px 0px 10px #999;
     }
 
     @media only screen and (max-width: 1220px) {
-      .page-card {
+      section.hero,
+      section.section {
         width: auto;
         margin: 15px;
         padding: 25px 20px;
       }
     }
 
-    section.hero {
-      background: transparent;
-    }
-
     section.hero .hero-body {
-      padding: 1.5rem 0 0.5rem;
-    }
-
-    section.section {
-      background: transparent;
-      padding: 2rem 0;
+      padding: 0.5rem 0;
     }
 
     .title.is-3 {
@@ -399,7 +392,6 @@
   </style>
 </head>
 <body>
-<div class="page-card">
 <section class="hero">
   <div class="hero-body">
     <div class="container is-wide">
@@ -668,7 +660,6 @@
     </div>
   </div>
 </footer>
-</div>
 
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
