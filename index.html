@@ -183,12 +183,14 @@
       flex: none;
     }
 
+    /* Section descriptions read like the hero paragraph. */
     .section-note {
-      max-width: 820px;
-      margin: -1rem auto 1.5rem;
-      color: #555;
-      font-size: 1.05em;
-      line-height: 1.45;
+      max-width: 900px;
+      margin: -0.6rem auto 1.6rem;
+      color: #111;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: justify;
     }
 
     /* Wider than Bulma's is-max-desktop, used for sections whose media should read large. */
@@ -667,12 +669,12 @@
         <h2 class="title is-3">Secondary Ray Tracing on Dynamic Scene with Mirror Reflection</h2>
         <div class="media-grid">
           <div class="media-item is-wide">
-            <p class="media-label">Single Physics in Garden Scene</p>
+            <p class="media-label">Single Physics Simulation in Garden Scene</p>
             <img class="annot-img" src="./new_assets/ray_tracing/bonsai_garden_annotated.png" alt="Bonsai garden setup: a force applied to the bonsai, with the mirror plane above showing the reflected view">
             <video autoplay muted loop playsinline><source src="./results/ray_tracing/bonsai_garden_dynamic_mirror.mp4" type="video/mp4"></video>
           </div>
           <div class="media-item is-wide">
-            <p class="media-label">Multi-Physics in Cafeteria Scene</p>
+            <p class="media-label">Multi-Physics Simulation in Cafeteria Scene</p>
             <img class="annot-img" src="./new_assets/ray_tracing/cafeteria_annotated.png" alt="Cafeteria setup: arrows mark the forces applied to the toy cars, cans and bread, with the mirror plane showing the reflected view">
             <video autoplay muted loop playsinline><source src="./results/ray_tracing/cafeteria.mp4" type="video/mp4"></video>
           </div>
@@ -686,8 +688,8 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Comparison with Baselines</h2>
-        <p class="section-note">Dynamic reconstruction on the GSO drop benchmark. Panels left to right: PAC-NeRF, PhysDreamer, Ours, Reference.</p>
+        <h2 class="title is-3">Benchmark Comparisons</h2>
+        <p class="section-note">We provide qualitative comparisons on the GSO drop benchmark with other baseline methods. Panels left to right: PAC-NeRF, PhysDreamer, Ours, Reference.</p>
         <div class="media-grid">
           <div class="media-item is-full">
             <p class="media-label">Mario</p>
