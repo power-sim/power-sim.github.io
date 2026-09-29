@@ -82,7 +82,8 @@
 
     /* Author links carry no underline; a bar animates in on hover. */
     .publication-authors a,
-    .publication-affiliation a {
+    .publication-affiliation a,
+    .paper-abstract a {
       color: #224b8d !important;
       text-decoration: none !important;
       display: inline-block;
@@ -90,7 +91,8 @@
     }
 
     .publication-authors a::after,
-    .publication-affiliation a::after {
+    .publication-affiliation a::after,
+    .paper-abstract a::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -103,7 +105,8 @@
     }
 
     .publication-authors a:hover::after,
-    .publication-affiliation a:hover::after {
+    .publication-affiliation a:hover::after,
+    .paper-abstract a:hover::after {
       transform: scaleX(1);
     }
 
@@ -116,6 +119,15 @@
     /* Black pill links, as on the reference page. */
     .paper-links {
       margin-top: 0.9rem;
+    }
+
+    .paper-abstract {
+      max-width: 900px;
+      margin: 1.6rem auto 0.3rem;
+      text-align: justify;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #111;
     }
 
     /* The hero figure sits tight between the byline and the link row. */
@@ -471,6 +483,7 @@
               <span>BibTex</span>
             </a>
           </div>
+          <p class="paper-abstract">We introduce PowerSim, a method to bring physically grounded, differentiable dynamics to PowerFoam’s power diagram based 3D representation. PowerSim directly couples a pre-trained <a href="https://powerfoam.github.io/" target="_blank" rel="noopener">PowerFoam</a> scene to the Material Point Method (MPM) by exploiting a natural alignment between the two: the geometric and appearance properties of each primitive correspond closely to the quantities MPM already tracks as an object deforms. Consequently, simulated motion can drive the scene’s geometry and appearance directly, without an auxiliary representation in between. Built on this framework, we enable a range of applications on real and synthetic scenes: (1) simulating a static scene under user interaction, (2) recovering spatially varying material fields, (3) compositing primitives from independently captured scenes into a single simulation-ready scene and (4) ray-tracing reflections that update consistently as the object deforms. Our results suggest that PowerSim excels over previous frameworks for physically grounded dynamics, while unlocking unique advantages—such as secondary ray lighting effects on dynamic scenes.</p>
         </div>
       </div>
     </div>
@@ -701,6 +714,25 @@
           <div class="media-item">
             <p class="media-label label-fail">PhysGaussian</p>
             <video autoplay muted loop playsinline><source src="./results/ablation/physgaussian.mp4" type="video/mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Limitations</h2>
+        <p class="section-note">PowerSim can select and move the telephone handset, but its motion exposes poorly reconstructed regions, revealing gaps and visual artifacts. This could be further improved by generative priors which help to complete these regions, which we leave to future work.</p>
+        <div class="media-grid">
+          <div class="media-item is-wide is-16x9">
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./results/limitations/telephone_handset_takeout.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>./results/limitations/telephone_handset_takeout.mp4</small></div>
+            </div>
           </div>
         </div>
       </div>
