@@ -139,6 +139,12 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Keep the motion strip aligned with the teaser above it. */
+    section.hero .teaser-motion-grid {
+      max-width: 80%;
+      margin-top: 0.9rem;
+    }
+
     .paper-links a,
     .paper-links a span {
       font-family: Arial, Helvetica, sans-serif !important;
@@ -470,6 +476,29 @@
               <img src="./new_assets/pdf_renders/teaser.png" alt="Teaser: scene composition, simulation under applied force, estimated material fields, and dynamic mirror reflection over time">
             </div>
           </div>
+          <div class="teaser-motion-grid">
+            <div class="teaser-motion-item">
+              <div class="teaser-motion-label">Force Setting 1</div>
+              <div class="media-frame">
+                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_1.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_1.mp4</small></div>
+              </div>
+            </div>
+            <div class="teaser-motion-item">
+              <div class="teaser-motion-label">Force Setting 2</div>
+              <div class="media-frame">
+                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_2.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_2.mp4</small></div>
+              </div>
+            </div>
+            <div class="teaser-motion-item">
+              <div class="teaser-motion-label">Force Setting 3</div>
+              <div class="media-frame">
+                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_3.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_3.mp4</small></div>
+              </div>
+            </div>
+          </div>
           <!-- Icons: Font Awesome Free 6.5.1 (CC BY 4.0), paths inlined - https://fontawesome.com/license/free -->
           <div class="paper-links">
             <a href="#" role="button">
@@ -486,42 +515,6 @@
             </a>
           </div>
           <p class="paper-abstract">We introduce PowerSim, a method to bring physically grounded, differentiable dynamics to PowerFoam’s power diagram based 3D representation. PowerSim directly couples a pre-trained <a href="https://powerfoam.github.io/" target="_blank" rel="noopener">PowerFoam</a> scene to the Material Point Method (MPM) by exploiting a natural alignment between the two: the geometric and appearance properties of each primitive correspond closely to the quantities MPM already tracks as an object deforms. Consequently, simulated motion can drive the scene’s geometry and appearance directly, without an auxiliary representation in between. Built on this framework, we enable a range of applications on real and synthetic scenes: (1) simulating a static scene under user interaction, (2) recovering spatially varying material fields, (3) compositing primitives from independently captured scenes into a single simulation-ready scene and (4) ray-tracing reflections that update consistently as the object deforms. Our results suggest that PowerSim excels over previous frameworks for physically grounded dynamics, while unlocking unique advantages—such as secondary ray lighting effects on dynamic scenes.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-wide">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Dynamic Scene Editing and Poking</h2>
-        <div class="figure-wrap">
-          <img src="./new_assets/pdf_renders/foam_edit.png" alt="Scene editing pipeline: original scene, object removal, selected object, simulation-ready scene">
-        </div>
-        <div class="teaser-motion-grid">
-          <div class="teaser-motion-item">
-            <div class="teaser-motion-label">Force Setting 1</div>
-            <div class="media-frame">
-              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_1.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_1.mp4</small></div>
-            </div>
-          </div>
-          <div class="teaser-motion-item">
-            <div class="teaser-motion-label">Force Setting 2</div>
-            <div class="media-frame">
-              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_2.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_2.mp4</small></div>
-            </div>
-          </div>
-          <div class="teaser-motion-item">
-            <div class="teaser-motion-label">Force Setting 3</div>
-            <div class="media-frame">
-              <video autoplay muted loop playsinline><source src="./results/poke/force_setting_3.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-              <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_3.mp4</small></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -594,6 +587,19 @@
           <div class="mat-item-title is-random">Random Material</div>
           <div class="mat-item-title is-baseline">PhysDreamer</div>
           <div class="mat-item-title is-optimized">PowerSim</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-wide">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Dynamic Scene Editing and Poking</h2>
+        <div class="figure-wrap">
+          <img src="./new_assets/pdf_renders/foam_edit.png" alt="Scene editing pipeline: original scene, object removal, selected object, simulation-ready scene">
         </div>
       </div>
     </div>
