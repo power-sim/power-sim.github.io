@@ -83,7 +83,8 @@
     /* Author links carry no underline; a bar animates in on hover. */
     .publication-authors a,
     .publication-affiliation a,
-    .paper-abstract a {
+    .paper-abstract a,
+    .section-note a {
       color: #224b8d !important;
       text-decoration: none !important;
       display: inline-block;
@@ -92,7 +93,8 @@
 
     .publication-authors a::after,
     .publication-affiliation a::after,
-    .paper-abstract a::after {
+    .paper-abstract a::after,
+    .section-note a::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -106,7 +108,8 @@
 
     .publication-authors a:hover::after,
     .publication-affiliation a:hover::after,
-    .paper-abstract a:hover::after {
+    .paper-abstract a:hover::after,
+    .section-note a:hover::after {
       transform: scaleX(1);
     }
 
@@ -531,7 +534,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Why PowerSim?</h2>
-        <p class="section-note">PowerSim partitions the reconstructed object volume into explicit cells, while PhysGaussian (Xie et al., 2023) uses Gaussian kernels that tend to concentrate near surfaces and optionally adds interior particles. Under extreme stretching with the same applied force, PAC-NeRF loses texture and develops abrupt cut-like boundaries, while PhysGaussian exhibits pronounced blurring in stretched regions. PowerSim retains more surface detail and sharper boundaries during separation.</p>
+        <p class="section-note">PowerSim partitions the reconstructed object volume into explicit cells, while <a href="https://xpandora.github.io/PhysGaussian/" target="_blank" rel="noopener">PhysGaussian</a> uses Gaussian kernels that tend to concentrate near surfaces and optionally adds interior particles. Under extreme stretching with the same applied force, PAC-NeRF loses texture and develops abrupt cut-like boundaries, while PhysGaussian exhibits pronounced blurring in stretched regions. PowerSim retains more surface detail and sharper boundaries during separation.</p>
         <div class="media-grid">
           <div class="media-item">
             <p class="media-label">PAC-NeRF</p>
