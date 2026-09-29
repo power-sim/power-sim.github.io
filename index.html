@@ -580,6 +580,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Material Properties Estimation</h2>
+        <p class="section-note">Under the same applied force, random material assignment produces large stem bending, while PhysDreamer produces little bending. PowerSim produces back-and-forth motion with visible stem deformation. The first row shows the material field (Young’s modulus) for each setting.</p>
         <div class="mat-grid">
           <p class="mat-row-label">Material Field</p>
           <div><img src="./new_assets/material/random.png" alt="Randomly initialized material field"></div>
@@ -598,9 +599,9 @@
             <video autoplay muted loop playsinline><source src="./results/material/optimized.mp4" type="video/mp4" onerror="markMissing(this)"></video>
             <div class="missing-overlay">Video placeholder<small>results/material/optimized.mp4</small></div>
           </div>
-          <div class="mat-item-title is-random">&#10007; Random Material</div>
+          <div class="mat-item-title is-random">Random Material</div>
           <div class="mat-item-title is-baseline">PhysDreamer</div>
-          <div class="mat-item-title is-optimized">&#10003; Optimized Material</div>
+          <div class="mat-item-title is-optimized">PowerSim</div>
         </div>
       </div>
     </div>
