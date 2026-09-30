@@ -247,6 +247,13 @@
       text-align: center;
     }
 
+    /* The ablation clips are rendered on white like the card, so a framed panel
+       would draw an edge that is not really there. */
+    .media-grid.is-4up .media-item video {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
     /* Four panels on one row: each takes a quarter minus its share of the gaps. */
     .media-grid.is-4up .media-item {
       flex: 1 1 calc(25% - 0.75em);
