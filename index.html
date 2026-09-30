@@ -344,7 +344,9 @@
     .mat-grid video {
       width: 100%;
       aspect-ratio: 380 / 230;
-      object-fit: cover;
+      /* contain, not cover: the field images differ slightly in aspect and a
+         crop would eat the colour-bar labels along the top. */
+      object-fit: contain;
       display: block;
       background: #fff;
       border-radius: 0.4em;
