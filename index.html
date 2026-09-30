@@ -63,7 +63,7 @@
     /* Hero: title, author row, affiliation. */
     /* Needs .title.is-3 in the selector to outrank the section-heading rule above. */
     .title.is-3.paper-title {
-      color: #224b8d !important;
+      color: #000 !important;
       font-weight: 700 !important;
       font-size: 38px !important;
       line-height: 1.35 !important;
@@ -71,6 +71,18 @@
     }
 
     /* !important to beat Bulma's .is-size-5 on the same element. */
+    /* Wordmark from the PowerSim video: Poppins ExtraBold, coral -> blue. */
+    .paper-title .wordmark {
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background-image: linear-gradient(90deg, #e0523f, #d8419a, #9a4fdc, #4b62f2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
     .publication-authors {
       font-size: 23px !important;
       margin-bottom: 8px;
@@ -119,6 +131,27 @@
       color: #000;
     }
 
+    .hero-video {
+      max-width: 80%;
+      margin: 1.2rem auto 0.4rem;
+    }
+
+    .section-video {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-video video,
+    .section-video video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+      border-radius: 0.5em;
+      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
+    }
+
     /* Black pill links, as on the reference page. */
     .paper-links {
       margin-top: 0.9rem;
@@ -133,39 +166,10 @@
       color: #111;
     }
 
-    /* The hero figure sits tight between the byline and the link row. */
-    section.hero .figure-wrap {
-      max-width: 80%;
-      margin-bottom: 0.5rem;
-    }
 
-    /* Keep the motion strip aligned with the teaser above it. */
-    section.hero .teaser-motion-grid {
-      max-width: 80%;
-      margin-top: 0.4rem;
-    }
 
-    .hero-mirror {
-      max-width: 55%;
-      margin: 0 auto;
-    }
 
-    .hero-mirror video {
-      width: 100%;
-      aspect-ratio: 1298 / 840;
-      object-fit: contain;
-      display: block;
-      background: #fff;
-      border-radius: 0.5em;
-      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
-    }
 
-    .hero-strip-title {
-      margin-top: 1.1rem;
-      font-size: 20px;
-      font-weight: 700;
-      color: #000;
-    }
 
     .paper-links a,
     .paper-links a span {
@@ -226,17 +230,7 @@
       max-width: 100%;
     }
 
-    .figure-wrap {
-      max-width: 100%;
-      margin: 0 auto 1.5rem;
-    }
 
-    .figure-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      background: #fff;
-    }
 
     .media-grid {
       display: flex;
@@ -318,37 +312,9 @@
     .media-item.is-wide.is-16x9 video { aspect-ratio: 16 / 9; }
     .media-item.is-full video { aspect-ratio: 1810 / 482; }
 
-    /* Three-up grid with an uppercase label bar, as in the hero of the sibling page. */
-    .teaser-motion-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1em;
-      margin: 0 auto;
-    }
 
-    .teaser-motion-item {
-      text-align: center;
-    }
 
-    .teaser-motion-label {
-      padding: 0.5em 0.3em;
-      border-bottom: 2px solid #70b700;
-      background: #eef3fb;
-      color: #174a90;
-      font-size: 0.78em;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
 
-    .teaser-motion-item video {
-      width: 100%;
-      aspect-ratio: 1296 / 840;
-      object-fit: contain;
-      background: #fff;
-      box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.12);
-      display: block;
-    }
 
     /* Material estimation: one column per setting, material fields on the first
        row and the simulations they produce on the second. */
@@ -501,10 +467,6 @@
       .mat-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr));
       }
-
-      .teaser-motion-grid {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-      }
     }
   </style>
 </head>
@@ -515,7 +477,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <div class="publication-title">
-            <h2 class="title is-3 paper-title">PowerSim: Differentiable Physics Simulation and Rendering with Power Diagrams</h2>
+            <h2 class="title is-3 paper-title"><span class="wordmark">PowerSim</span>: Differentiable Physics Simulation and Rendering with Power Diagrams</h2>
           </div>
           <div class="is-size-5 publication-authors">
             <span class="author-block"><a href="https://nttung1110.github.io/" target="_blank" rel="noopener">Trong-Tung Nguyen</a></span>
@@ -524,40 +486,10 @@
           <div class="publication-affiliation">
             Johns Hopkins University
           </div>
-          <div style="margin-top: 1.2rem;">
-            <div class="figure-wrap">
-              <img src="./new_assets/pdf_renders/teaser.png" alt="Teaser: scene composition, simulation under applied force, estimated material fields, and dynamic mirror reflection over time">
-            </div>
-          </div>
-          <p class="hero-strip-title">Ray-Traced Mirror Reflection via PowerSim</p>
-          <div class="hero-mirror">
+          <div class="hero-video">
             <div class="media-frame">
-              <video autoplay muted loop playsinline><source src="./results/ray_tracing/bonsai_garden_dynamic_mirror.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-              <div class="missing-overlay">Video placeholder<small>results/ray_tracing/bonsai_garden_dynamic_mirror.mp4</small></div>
-            </div>
-          </div>
-          <p class="hero-strip-title">Varying Force Conditions</p>
-          <div class="teaser-motion-grid">
-            <div class="teaser-motion-item">
-              <div class="teaser-motion-label">Force Setting 1</div>
-              <div class="media-frame">
-                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_1.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_1.mp4</small></div>
-              </div>
-            </div>
-            <div class="teaser-motion-item">
-              <div class="teaser-motion-label">Force Setting 2</div>
-              <div class="media-frame">
-                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_2.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_2.mp4</small></div>
-              </div>
-            </div>
-            <div class="teaser-motion-item">
-              <div class="teaser-motion-label">Force Setting 3</div>
-              <div class="media-frame">
-                <video autoplay muted loop playsinline><source src="./results/poke/force_setting_3.mp4" type="video/mp4" onerror="markMissing(this)"></video>
-                <div class="missing-overlay">Video placeholder<small>results/poke/force_setting_3.mp4</small></div>
-              </div>
+              <video autoplay muted loop playsinline controls><source src="./videos/overview_video.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>videos/overview_video.mp4</small></div>
             </div>
           </div>
           <!-- Icons: Font Awesome Free 6.5.1 (CC BY 4.0), paths inlined - https://fontawesome.com/license/free -->
@@ -588,20 +520,12 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Why PowerSim?</h2>
         <p class="section-note">PowerSim partitions the reconstructed object volume into explicit cells, while <a href="https://xpandora.github.io/PhysGaussian/" target="_blank" rel="noopener">PhysGaussian</a> uses Gaussian kernels that tend to concentrate near surfaces and optionally adds interior particles. Under extreme stretching with the same applied force, <a href="https://sites.google.com/view/PAC-NeRF" target="_blank" rel="noopener">PAC-NeRF</a> loses texture and develops abrupt cut-like boundaries, while PhysGaussian exhibits pronounced blurring in stretched regions. PowerSim retains more surface detail and sharper boundaries during separation.</p>
-        <div class="media-grid">
-          <div class="media-item">
-            <p class="media-label">PAC-NeRF</p>
-            <video autoplay muted loop playsinline><source src="./results/why_powersim/pac_nerf.mp4" type="video/mp4"></video>
+        <div class="section-video">
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./videos/why_powersim_video.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>videos/why_powersim_video.mp4</small></div>
+            </div>
           </div>
-          <div class="media-item">
-            <p class="media-label">PhysGaussian</p>
-            <video autoplay muted loop playsinline><source src="./results/why_powersim/physgaussian.mp4" type="video/mp4"></video>
-          </div>
-          <div class="media-item">
-            <p class="media-label label-ours">PowerSim</p>
-            <video autoplay muted loop playsinline><source src="./results/why_powersim/powersim.mp4" type="video/mp4"></video>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -613,9 +537,12 @@
       <div class="column is-full-width">
         <h2 class="title is-3">How to Evolve Foams?</h2>
         <p class="section-note">After N MPM substeps, we leverage the deformation gradient output to update primitive positions, isotropically scale their radii to match local volume change, and rotate their dipole frames and appearance directions. We then rebuild adjacency for the updated primitives. Insets show two selected primitives before and after deformation.</p>
-        <div class="figure-wrap">
-          <img src="./new_assets/pdf_renders/evolve_sites.png" alt="Differentiable PowerSim primitives update: primitives at rest are mapped world2sim, advanced by N differentiable MPM substeps, then mapped sim2world to the primitives at timestep t">
-        </div>
+        <div class="section-video">
+            <div class="media-frame">
+              <video autoplay muted loop playsinline><source src="./videos/evolve_foams_video.mp4" type="video/mp4" onerror="markMissing(this)"></video>
+              <div class="missing-overlay">Video placeholder<small>videos/evolve_foams_video.mp4</small></div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -648,20 +575,6 @@
           <div class="mat-item-title is-random">Random Material</div>
           <div class="mat-item-title is-baseline">PhysDreamer</div>
           <div class="mat-item-title is-optimized">PowerSim</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-wide">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Simulation-ready Primitives Selection</h2>
-        <p class="section-note">We design an optimization-free, primitive-based selection for a 3D scene from multi-view masks, enabling scene composition and multi-object simulation.</p>
-        <div class="figure-wrap">
-          <img src="./new_assets/pdf_renders/foam_edit.png" alt="Scene editing pipeline: original scene, object removal, selected object, simulation-ready scene">
         </div>
       </div>
     </div>
