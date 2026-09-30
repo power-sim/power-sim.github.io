@@ -279,8 +279,10 @@
       display: block;
     }
 
+    /* Same box as the video below, so the two columns stay in step even though
+       the two stills differ in aspect. object-fit: contain is inherited. */
     .media-item .annot-img {
-      aspect-ratio: auto;
+      aspect-ratio: 1298 / 840;
       margin-bottom: 0.6em;
     }
 
