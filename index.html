@@ -141,6 +141,8 @@
       margin: 0 auto;
     }
 
+    /* The clips are rendered on white, so a rounded, shadowed frame would read
+       as a panel sitting on the card rather than part of it. */
     .hero-clip video,
     .section-video video {
       width: 100%;
@@ -148,8 +150,6 @@
       object-fit: contain;
       display: block;
       background: #fff;
-      border-radius: 0.5em;
-      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.15);
     }
 
     /* Black pill links, as on the reference page. */
