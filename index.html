@@ -72,7 +72,7 @@
 
     /* !important to beat Bulma's .is-size-5 on the same element. */
     /* Wordmark from the PowerSim video: Poppins ExtraBold, coral -> blue. */
-    .paper-title .wordmark {
+    .wordmark {
       font-family: 'Poppins', sans-serif !important;
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -275,10 +275,6 @@
     .media-item.is-full {
       flex-basis: 100%;
       max-width: 1100px;
-    }
-
-    .media-label.label-ours {
-      color: #1f77b4;
     }
 
     .media-label.label-fail {
@@ -676,7 +672,7 @@
         <p class="section-note">We model the bread as an elastic material and apply twisting and pulling to test the updates under large deformation. Under large twisting deformations, updating both the dipole frames and appearance directions helps preserve the object's geometry and appearance. We compare the full update with variants that hold either component fixed, and with PhysGaussian.</p>
         <div class="media-grid is-4up">
           <div class="media-item">
-            <p class="media-label label-ours">PowerSim</p>
+            <p class="media-label"><span class="wordmark">PowerSim</span></p>
             <video autoplay muted loop playsinline><source src="./results/ablation/powersim.mp4" type="video/mp4"></video>
           </div>
           <div class="media-item">
