@@ -71,14 +71,8 @@
     }
 
     /* !important to beat Bulma's .is-size-5 on the same element. */
-    /* Keeps the page's serif and the surrounding weight; only the coral -> blue
-       gradient from the PowerSim video carries over. */
-    .wordmark {
-      background-image: linear-gradient(90deg, #e0523f, #d8419a, #9a4fdc, #4b62f2);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
+    .media-label.label-ours {
+      color: #c75100;
     }
 
     .publication-authors {
@@ -670,7 +664,7 @@
         <p class="section-note">We model the bread as an elastic material and apply twisting and pulling to test the updates under large deformation. Under large twisting deformations, updating both the dipole frames and appearance directions helps preserve the object's geometry and appearance. We compare the full update with variants that hold either component fixed, and with PhysGaussian.</p>
         <div class="media-grid is-4up">
           <div class="media-item">
-            <p class="media-label"><span class="wordmark">PowerSim</span></p>
+            <p class="media-label label-ours">PowerSim</p>
             <video autoplay muted loop playsinline><source src="./results/ablation/powersim.mp4" type="video/mp4"></video>
           </div>
           <div class="media-item">
